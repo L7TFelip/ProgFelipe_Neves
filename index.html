@@ -1,51 +1,1621 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diego Mr-C</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <title>Login | Atlas CEEP</title>
 
-html, body{
-    width:100%;
-    height:100%;
-    background:#000;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-.imagem{
-    width:95vw;
-    height:95vh;
+    <style>
 
-    background-image:url("Page/Diego.png");
-    background-repeat:no-repeat;
-    background-position:center center;
-    background-size:contain;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    border:3px solid #00ff66;
-    border-radius:8px;
+        :root {
+            --green: #83E509;
+            --green-light: #9bf424;
+            --dark: #111111;
+            --dark-2: #181818;
+            --white: #ffffff;
+            --gray: #777777;
+            --border: #dedede;
+            --background: #f5f5f5;
+        }
 
-    box-shadow:
-        0 0 5px #00ff66,
-        0 0 10px #00ff66,
-        0 0 20px #00ff66,
-        0 0 40px #00ff66;
-}
-</style>
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            background: var(--background);
+            color: var(--dark);
 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           FUNDO ANIMADO
+        ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.12;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+
+            background: var(--green);
+
+            top: -150px;
+            left: -100px;
+
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .circle-2 {
+            width: 350px;
+            height: 350px;
+
+            background: #000;
+
+            right: -120px;
+            bottom: -120px;
+
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+
+            background: var(--green);
+
+            right: 25%;
+            top: 10%;
+
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+
+        /* =========================
+           CONTAINER PRINCIPAL
+        ========================= */
+
+        .login-container {
+            width: min(1100px, 92%);
+            min-height: 650px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.12);
+
+            overflow: hidden;
+
+            position: relative;
+
+            animation: containerEnter 0.8s ease;
+        }
+
+        @keyframes containerEnter {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+
+        /* =========================
+           ÁREA DO CALENDÁRIO
+        ========================= */
+
+        .calendar-area {
+            background: var(--dark);
+
+            padding: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .calendar-area::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            opacity: 0.08;
+
+            top: -150px;
+            left: -150px;
+        }
+
+        .calendar-area::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(131, 229, 9, 0.2);
+
+            right: -100px;
+            bottom: -80px;
+        }
+
+
+        /* =========================
+           CALENDÁRIO
+        ========================= */
+
+        .calendar {
+            width: 100%;
+            max-width: 430px;
+
+            color: white;
+
+            position: relative;
+            z-index: 2;
+
+            animation: calendarEnter 1s ease;
+        }
+
+        @keyframes calendarEnter {
+
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .calendar-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 35px;
+        }
+
+        .calendar-header > div {
+            display: flex;
+
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+        #monthName {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        #year {
+            color: var(--green);
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-top: 4px;
+        }
+
+
+        /* Botões do calendário */
+
+        .calendar-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            background: rgba(255, 255, 255, 0.06);
+
+            color: white;
+
+            border-radius: 12px;
+
+            font-size: 26px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .calendar-btn:hover {
+            background: var(--green);
+
+            color: black;
+
+            transform: scale(1.08);
+        }
+
+
+        /* Dias da semana */
+
+        .weekdays {
+            display: grid;
+
+            grid-template-columns: repeat(7, 1fr);
+
+            margin-bottom: 12px;
+        }
+
+        .weekdays span {
+            text-align: center;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            color: #777;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* Dias */
+
+        .days {
+            display: grid;
+
+            grid-template-columns: repeat(7, 1fr);
+
+            gap: 8px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            color: #ccc;
+
+            transition: 0.25s;
+
+            cursor: pointer;
+        }
+
+        .day:not(.empty):hover {
+            background: rgba(131, 229, 9, 0.12);
+
+            color: white;
+
+            transform: translateY(-3px);
+        }
+
+        .day.today {
+            background: var(--green);
+
+            color: black;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 0 20px rgba(131, 229, 9, 0.3);
+        }
+
+        .day.selected {
+            border: 1px solid var(--green);
+        }
+
+
+        /* =========================
+           ÁREA DE LOGIN
+        ========================= */
+
+        .login-area {
+            padding: 50px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 390px;
+
+            animation: loginEnter 0.9s ease;
+        }
+
+        @keyframes loginEnter {
+
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+
+        /* Logo */
+
+        .logo {
+            margin-bottom: 22px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: var(--green);
+
+            border-radius: 14px;
+
+            font-size: 25px;
+
+            font-weight: 900;
+
+            color: black;
+
+            box-shadow:
+                0 8px 25px rgba(131, 229, 9, 0.25);
+        }
+
+
+        /* Título */
+
+        .login-title {
+            margin-bottom: 30px;
+        }
+
+        .login-title span {
+            color: var(--gray);
+
+            font-size: 13px;
+        }
+
+        .login-title h1 {
+            font-size: 32px;
+
+            margin-top: 3px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+        }
+
+        .login-title p {
+            margin-top: 7px;
+
+            color: var(--gray);
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           INPUTS
+        ========================= */
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .input-box {
+            height: 52px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            background: white;
+
+            transition: 0.3s;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--green);
+
+            box-shadow:
+                0 0 0 4px rgba(131, 229, 9, 0.1);
+        }
+
+        .input-icon {
+            width: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #999;
+
+            font-size: 14px;
+        }
+
+        .input-box input {
+            flex: 1;
+
+            height: 100%;
+
+            border: none;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            color: #222;
+
+            background: transparent;
+        }
+
+        .input-box input::placeholder {
+            color: #aaa;
+        }
+
+        .show-password {
+            border: none;
+
+            background: transparent;
+
+            color: #999;
+
+            cursor: pointer;
+
+            margin-right: 15px;
+
+            transition: 0.2s;
+        }
+
+        .show-password:hover {
+            color: var(--dark);
+        }
+
+
+        /* Erros */
+
+        .error {
+            display: block;
+
+            color: #e53935;
+
+            font-size: 10px;
+
+            margin-top: 5px;
+
+            min-height: 12px;
+        }
+
+
+        /* =========================
+           OPÇÕES DO LOGIN
+        ========================= */
+
+        .login-options {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 24px;
+
+            font-size: 11px;
+        }
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #666;
+
+            cursor: pointer;
+        }
+
+        .remember input {
+            display: none;
+        }
+
+        .remember span {
+            width: 16px;
+            height: 16px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+        .remember input:checked + span {
+            background: var(--green);
+
+            border-color: var(--green);
+
+            box-shadow:
+                inset 0 0 0 4px white;
+        }
+
+        .login-options a {
+            color: #444;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        .login-options a:hover {
+            color: #000;
+        }
+
+
+        /* =========================
+           BOTÃO ENTRAR
+        ========================= */
+
+        .login-button {
+            width: 100%;
+
+            height: 53px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: var(--dark);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 12px;
+
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: var(--green);
+
+            color: black;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(131, 229, 9, 0.2);
+        }
+
+        .login-button:active {
+            transform: scale(0.98);
+        }
+
+        .arrow {
+            font-size: 18px;
+
+            transition: 0.3s;
+        }
+
+        .login-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+
+        /* Loading */
+
+        .login-button.loading {
+            pointer-events: none;
+
+            opacity: 0.7;
+        }
+
+        .login-button.loading span:first-child {
+            font-size: 0;
+        }
+
+        .login-button.loading span:first-child::after {
+            content: "Entrando...";
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           DIVISOR
+        ========================= */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 28px 0;
+
+            color: #aaa;
+
+            font-size: 10px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            height: 1px;
+
+            background: #e5e5e5;
+
+            flex: 1;
+        }
+
+
+        /* =========================
+           CRIAR CONTA
+        ========================= */
+
+        .create-account {
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #888;
+        }
+
+        .create-account p {
+            margin-bottom: 8px;
+        }
+
+        .create-account a {
+            color: #222;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .create-account a:hover {
+            color: #6ba900;
+        }
+
+
+        /* =========================
+           NOTIFICAÇÃO
+        ========================= */
+
+        .notification {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 15px 18px;
+
+            background: #111;
+
+            color: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.2);
+
+            transform: translateY(120px);
+
+            opacity: 0;
+
+            transition: 0.4s;
+
+            z-index: 100;
+        }
+
+        .notification.active {
+            transform: translateY(0);
+
+            opacity: 1;
+        }
+
+        .notification-icon {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: var(--green);
+
+            color: black;
+
+            font-weight: 900;
+        }
+
+        .notification strong {
+            font-size: 12px;
+        }
+
+        .notification p {
+            font-size: 10px;
+
+            color: #aaa;
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            body {
+                padding: 30px 0;
+            }
+
+            .login-container {
+                grid-template-columns: 1fr;
+
+                max-width: 520px;
+            }
+
+            .calendar-area {
+                min-height: 430px;
+
+                padding: 40px;
+            }
+
+            .login-area {
+                padding: 40px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                width: 100%;
+
+                border-radius: 22px;
+            }
+
+            .calendar-area {
+                padding: 30px 20px;
+            }
+
+            .login-area {
+                padding: 30px 22px;
+            }
+
+            .login-title h1 {
+                font-size: 27px;
+            }
+
+            .day {
+                font-size: 11px;
+            }
+
+            .days {
+                gap: 4px;
+            }
+
+            .notification {
+                left: 15px;
+                right: 15px;
+
+                bottom: 15px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
-<div class="imagem"></div>
+    <!-- =========================
+         FUNDO
+    ========================= -->
+
+    <div class="background">
+
+        <div class="circle circle-1"></div>
+
+        <div class="circle circle-2"></div>
+
+        <div class="circle circle-3"></div>
+
+    </div>
+
+
+    <!-- =========================
+         LOGIN
+    ========================= -->
+
+    <main class="login-container">
+
+
+        <!-- CALENDÁRIO -->
+
+        <section class="calendar-area">
+
+            <div class="calendar">
+
+                <div class="calendar-header">
+
+                    <button
+                        class="calendar-btn"
+                        id="prevMonth"
+                        type="button"
+                    >
+                        ‹
+                    </button>
+
+
+                    <div>
+
+                        <span id="monthName">
+                            Setembro
+                        </span>
+
+                        <span id="year">
+                            2026
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="calendar-btn"
+                        id="nextMonth"
+                        type="button"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+
+                <div class="weekdays">
+
+                    <span>DOM</span>
+                    <span>SEG</span>
+                    <span>TER</span>
+                    <span>QUA</span>
+                    <span>QUI</span>
+                    <span>SEX</span>
+                    <span>SÁB</span>
+
+                </div>
+
+
+                <div
+                    class="days"
+                    id="calendarDays"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGIN -->
+
+        <section class="login-area">
+
+            <div class="login-card">
+
+
+                <!-- LOGO -->
+
+                <div class="logo">
+
+                    <div class="logo-icon">
+                        A
+                    </div>
+
+                </div>
+
+
+                <!-- TÍTULO -->
+
+                <div class="login-title">
+
+                    <span>
+                        Bem-vindo ao
+                    </span>
+
+                    <h1>
+                        Atlas CEEP
+                    </h1>
+
+                    <p>
+                        Organize sua vida escolar.
+                    </p>
+
+                </div>
+
+
+                <!-- FORMULÁRIO -->
+
+                <form id="loginForm">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Digite seu e-mail"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                        <small
+                            class="error"
+                            id="emailError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- SENHA -->
+
+                    <div class="input-group">
+
+                        <label for="password">
+                            Senha
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ●
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="showPassword"
+                                aria-label="Mostrar senha"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="error"
+                            id="passwordError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- OPÇÕES -->
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember"
+                            >
+
+                            <span></span>
+
+                            Lembrar de mim
+
+                        </label>
+
+
+                        <a href="#">
+                            Esqueceu a senha?
+                        </a>
+
+                    </div>
+
+
+                    <!-- BOTÃO -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+
+                        <span>
+                            Entrar
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- DIVISOR -->
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+
+                <!-- CRIAR CONTA -->
+
+                <div class="create-account">
+
+                    <p>
+                        Ainda não possui uma conta?
+                    </p>
+
+                    <a href="#">
+                        Criar uma conta
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         NOTIFICAÇÃO
+    ========================= -->
+
+    <div
+        class="notification"
+        id="notification"
+    >
+
+        <div class="notification-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong>
+                Login realizado!
+            </strong>
+
+            <p>
+                Bem-vindo ao Atlas CEEP.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =========================
+           CALENDÁRIO
+        ========================= */
+
+        const calendarDays =
+            document.getElementById("calendarDays");
+
+        const monthName =
+            document.getElementById("monthName");
+
+        const yearElement =
+            document.getElementById("year");
+
+        const prevMonth =
+            document.getElementById("prevMonth");
+
+        const nextMonth =
+            document.getElementById("nextMonth");
+
+
+        let currentDate = new Date();
+
+
+        const months = [
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"
+        ];
+
+
+        function renderCalendar() {
+
+            const year =
+                currentDate.getFullYear();
+
+            const month =
+                currentDate.getMonth();
+
+
+            monthName.textContent =
+                months[month];
+
+            yearElement.textContent =
+                year;
+
+
+            calendarDays.innerHTML = "";
+
+
+            const firstDay =
+                new Date(
+                    year,
+                    month,
+                    1
+                ).getDay();
+
+
+            const daysInMonth =
+                new Date(
+                    year,
+                    month + 1,
+                    0
+                ).getDate();
+
+
+            /* Espaços antes do primeiro dia */
+
+            for (
+                let i = 0;
+                i < firstDay;
+                i++
+            ) {
+
+                const emptyDay =
+                    document.createElement("div");
+
+                emptyDay.classList.add(
+                    "day",
+                    "empty"
+                );
+
+                calendarDays.appendChild(
+                    emptyDay
+                );
+            }
+
+
+            /* Dias */
+
+            for (
+                let day = 1;
+                day <= daysInMonth;
+                day++
+            ) {
+
+                const dayElement =
+                    document.createElement("div");
+
+
+                dayElement.classList.add("day");
+
+
+                dayElement.textContent =
+                    day;
+
+
+                /* Verificar hoje */
+
+                const today =
+                    new Date();
+
+
+                if (
+                    day === today.getDate() &&
+                    month === today.getMonth() &&
+                    year === today.getFullYear()
+                ) {
+
+                    dayElement.classList.add(
+                        "today"
+                    );
+
+                }
+
+
+                /* Selecionar dia */
+
+                dayElement.addEventListener(
+                    "click",
+                    () => {
+
+                        document
+                            .querySelectorAll(
+                                ".day.selected"
+                            )
+                            .forEach(
+                                element => {
+                                    element.classList.remove(
+                                        "selected"
+                                    );
+                                }
+                            );
+
+
+                        dayElement.classList.add(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                calendarDays.appendChild(
+                    dayElement
+                );
+            }
+        }
+
+
+        /* Mês anterior */
+
+        prevMonth.addEventListener(
+            "click",
+            () => {
+
+                currentDate.setMonth(
+                    currentDate.getMonth() - 1
+                );
+
+                renderCalendar();
+
+            }
+        );
+
+
+        /* Próximo mês */
+
+        nextMonth.addEventListener(
+            "click",
+            () => {
+
+                currentDate.setMonth(
+                    currentDate.getMonth() + 1
+                );
+
+                renderCalendar();
+
+            }
+        );
+
+
+        renderCalendar();
+
+
+
+        /* =========================
+           MOSTRAR SENHA
+        ========================= */
+
+        const password =
+            document.getElementById("password");
+
+        const showPassword =
+            document.getElementById("showPassword");
+
+
+        showPassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    password.type === "password"
+                ) {
+
+                    password.type = "text";
+
+                    showPassword.textContent =
+                        "◌";
+
+                } else {
+
+                    password.type = "password";
+
+                    showPassword.textContent =
+                        "◉";
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const emailError =
+            document.getElementById("emailError");
+
+        const passwordError =
+            document.getElementById("passwordError");
+
+        const notification =
+            document.getElementById("notification");
+
+
+        loginForm.addEventListener(
+            "submit",
+            (event) => {
+
+                event.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const passwordValue =
+                    password.value.trim();
+
+
+                let valid = true;
+
+
+                emailError.textContent = "";
+
+                passwordError.textContent = "";
+
+
+                /* Validar email */
+
+                if (!email) {
+
+                    emailError.textContent =
+                        "Digite seu e-mail.";
+
+                    valid = false;
+
+                } else if (
+                    !email.includes("@")
+                ) {
+
+                    emailError.textContent =
+                        "Digite um e-mail válido.";
+
+                    valid = false;
+
+                }
+
+
+                /* Validar senha */
+
+                if (!passwordValue) {
+
+                    passwordError.textContent =
+                        "Digite sua senha.";
+
+                    valid = false;
+
+                } else if (
+                    passwordValue.length < 6
+                ) {
+
+                    passwordError.textContent =
+                        "A senha deve ter pelo menos 6 caracteres.";
+
+                    valid = false;
+
+                }
+
+
+                if (!valid) {
+                    return;
+                }
+
+
+                /* Loading */
+
+                loginButton.classList.add(
+                    "loading"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        loginButton.classList.remove(
+                            "loading"
+                        );
+
+
+                        notification.classList.add(
+                            "active"
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                notification.classList.remove(
+                                    "active"
+                                );
+
+                            },
+                            3500
+                        );
+
+                    },
+                    1200
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
 </html>
+```

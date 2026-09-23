@@ -1,2250 +1,1132 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login | Atlas CEEP</title>
 
-
-    <!-- =====================================================
-         FONTE
-    ====================================================== -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-
-        /* =====================================================
-           VARIÁVEIS
-        ===================================================== */
-
         :root {
-
             --green: #83E509;
             --green-light: #9BF424;
-
             --dark: #111111;
             --dark-2: #181818;
-
-            --white: #FFFFFF;
-
-            --gray: #777777;
-
-            --light: #F5F7F3;
-
-            --border: #E2E2E2;
-
+            --gray: #777;
+            --light: #f5f7f3;
+            --white: #ffffff;
         }
-
-
-        /* =====================================================
-           BODY
-        ===================================================== */
 
         body {
-
             min-height: 100vh;
-
-            font-family: "Inter", sans-serif;
-
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
             background:
-
-                radial-gradient(
-                    circle at 10% 20%,
-                    rgba(131,229,9,0.12),
-                    transparent 28%
-                ),
-
-                radial-gradient(
-                    circle at 90% 80%,
-                    rgba(131,229,9,0.10),
-                    transparent 28%
-                ),
-
-                #F5F7F3;
-
-            color: var(--dark);
-
+                radial-gradient(circle at 10% 20%, rgba(131, 229, 9, 0.13), transparent 28%),
+                radial-gradient(circle at 90% 80%, rgba(131, 229, 9, 0.10), transparent 30%),
+                var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
             overflow-x: hidden;
-
         }
 
-
-        /* =====================================================
-           FUNDO
-        ===================================================== */
-
-        .background {
-
-            position: fixed;
-
-            inset: 0;
-
-            pointer-events: none;
-
-            overflow: hidden;
-
-            z-index: 0;
-
-        }
-
-
-        .background::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 500px;
-
-            height: 500px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            filter: blur(160px);
-
-            opacity: 0.08;
-
-            left: -180px;
-
-            top: -180px;
-
-            animation:
-                backgroundFloat 10s ease-in-out infinite;
-
-        }
-
-
-        .background::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 450px;
-
-            height: 450px;
-
-            border-radius: 50%;
-
-            background: #000;
-
-            filter: blur(180px);
-
-            opacity: 0.035;
-
-            right: -180px;
-
-            bottom: -180px;
-
-            animation:
-                backgroundFloat 12s ease-in-out infinite reverse;
-
-        }
-
-
-        @keyframes backgroundFloat {
-
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-
-            50% {
-                transform: translate(35px, -25px);
-            }
-
-        }
-
-
-        /* =====================================================
-           CONTAINER PRINCIPAL
-        ===================================================== */
-
-        .page {
-
-            min-height: 100vh;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 40px 20px;
-
-            position: relative;
-
-            z-index: 1;
-
-        }
-
-
-        .container {
-
-            width: min(1120px, 100%);
-
-            min-height: 650px;
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            background: rgba(255,255,255,0.86);
-
-            backdrop-filter: blur(20px);
-
-            border: 1px solid rgba(255,255,255,0.9);
-
-            border-radius: 28px;
-
-            overflow: hidden;
-
-            position: relative;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,0.10);
-
-            animation:
-                containerEnter 0.8s ease;
-
-        }
-
-
-        @keyframes containerEnter {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(25px)
-                    scale(0.98);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           CALENDÁRIO
-        ===================================================== */
-
-        .calendar-section {
-
-            position: relative;
-
-            background: var(--dark);
-
-            padding: 55px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            overflow: hidden;
-
-        }
-
-
-        .calendar-section::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 420px;
-
-            height: 420px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            opacity: 0.07;
-
-            filter: blur(5px);
-
-            top: -220px;
-
-            left: -180px;
-
-        }
-
-
-        .calendar-section::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 300px;
-
-            height: 300px;
-
-            border-radius: 50%;
-
-            border: 1px solid rgba(131,229,9,0.14);
-
-            right: -160px;
-
-            bottom: -130px;
-
-        }
-
-
-        /* =====================================================
-           CALENDÁRIO PRINCIPAL
-        ===================================================== */
-
-        .calendar {
-
+        /* =========================
+           ÁREA PRINCIPAL
+        ========================= */
+
+        .login-wrapper {
             width: 100%;
-
-            max-width: 420px;
-
+            max-width: 1120px;
+            min-height: 650px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #fff;
+            border-radius: 28px;
+            overflow: hidden;
             position: relative;
-
-            z-index: 5;
-
-            animation:
-                calendarEnter 1s ease;
-
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.12),
+                0 10px 30px rgba(0, 0, 0, 0.05);
+            animation: containerAppear 0.9s ease forwards;
         }
 
-
-        @keyframes calendarEnter {
-
+        @keyframes containerAppear {
             from {
-
                 opacity: 0;
-
-                transform: translateX(-25px);
-
+                transform: translateY(25px) scale(0.98);
             }
 
             to {
-
                 opacity: 1;
-
-                transform: translateX(0);
-
+                transform: translateY(0) scale(1);
             }
-
         }
 
+        /* =========================
+           CALENDÁRIO
+        ========================= */
 
-        .calendar-header {
-
+        .calendar-area {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(131, 229, 9, 0.12), transparent 25%),
+                linear-gradient(145deg, #111111, #181818);
+            color: white;
+            padding: 55px;
+            position: relative;
             display: flex;
-
             align-items: center;
-
-            justify-content: space-between;
-
-            margin-bottom: 35px;
-
+            justify-content: center;
+            overflow: hidden;
         }
 
+        .calendar-content {
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 42px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--green);
+            color: #111;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-name span {
+            color: var(--green);
+        }
 
         .calendar-title {
-
-            text-align: center;
-
+            margin-bottom: 25px;
         }
 
-
-        .calendar-title h2 {
-
-            color: white;
-
-            font-size: 28px;
-
-            font-weight: 800;
-
+        .calendar-title h1 {
+            font-size: clamp(34px, 4vw, 48px);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 14px;
         }
 
+        .calendar-title p {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 330px;
+        }
 
-        .calendar-title span {
+        .calendar-box {
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
 
-            display: block;
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
 
-            margin-top: 5px;
+        .calendar-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
 
+        .calendar-header span {
             color: var(--green);
-
             font-size: 13px;
-
             font-weight: 700;
-
         }
 
-
-        .calendar-arrow {
-
-            width: 42px;
-
-            height: 42px;
-
-            border-radius: 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: rgba(255,255,255,0.06);
-
-            border: 1px solid rgba(255,255,255,0.10);
-
-            color: white;
-
-            font-size: 25px;
-
-        }
-
-
-        /* =====================================================
-           DIAS
-        ===================================================== */
-
-        .week {
-
+        .weekdays,
+        .days {
             display: grid;
-
-            grid-template-columns:
-                repeat(7, 1fr);
-
-            margin-bottom: 12px;
-
+            grid-template-columns: repeat(7, 1fr);
+            gap: 7px;
         }
 
+        .weekdays {
+            margin-bottom: 10px;
+        }
 
-        .week span {
-
+        .weekdays div {
             text-align: center;
-
-            color: #6D6D6D;
-
-            font-size: 9px;
-
+            color: #777;
+            font-size: 10px;
             font-weight: 700;
-
-            letter-spacing: 1px;
-
         }
 
-
-        .calendar-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(7, 1fr);
-
-            gap: 8px;
-
-        }
-
-
-        .calendar-day {
-
-            aspect-ratio: 1;
-
+        .days div {
+            height: 38px;
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            border-radius: 12px;
-
-            color: #C8C8C8;
-
-            font-size: 13px;
-
-            transition: 0.25s;
-
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 12px;
+            transition: 0.3s ease;
         }
 
-
-        .calendar-day:hover {
-
-            background: rgba(131,229,9,0.08);
-
+        .days div:not(.empty):hover {
+            background: rgba(131, 229, 9, 0.12);
             color: white;
-
-            transform: translateY(-3px);
-
         }
 
-
-        .calendar-day.today {
-
+        .days .today {
             background: var(--green);
-
-            color: #000;
-
-            font-weight: 800;
-
-            box-shadow:
-                0 0 25px rgba(131,229,9,0.25);
-
+            color: #111;
+            font-weight: 900;
+            box-shadow: 0 8px 20px rgba(131, 229, 9, 0.22);
         }
 
-
-        /* =====================================================
+        /* =========================
            ELEMENTOS FLUTUANTES
-        ===================================================== */
+        ========================= */
 
         .floating {
-
             position: absolute;
-
-            z-index: 10;
-
+            z-index: 3;
             pointer-events: none;
-
-            user-select: none;
-
         }
 
-
-        /* TAREFA */
-
-        .task {
-
-            width: 165px;
-
-            padding: 14px;
-
-            right: 35px;
-
-            top: 70px;
-
-            background: rgba(30,30,30,0.90);
-
-            border: 1px solid rgba(255,255,255,0.10);
-
-            border-radius: 15px;
-
-            color: white;
-
-            backdrop-filter: blur(12px);
-
-            box-shadow:
-                0 15px 35px rgba(0,0,0,0.25);
-
-            transform: rotate(6deg);
-
-            animation:
-                taskFloat 6s ease-in-out infinite;
-
-        }
-
-
-        @keyframes taskFloat {
-
-            0%,
-            100% {
-                transform:
-                    translateY(0)
-                    rotate(6deg);
-            }
-
-            50% {
-                transform:
-                    translateY(-15px)
-                    rotate(3deg);
-            }
-
-        }
-
-
-        .task-top {
-
+        .floating-card {
+            padding: 13px 16px;
+            border-radius: 14px;
             display: flex;
-
             align-items: center;
-
-            gap: 7px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .task-dot {
-
-            width: 7px;
-
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            box-shadow:
-                0 0 10px var(--green);
-
-        }
-
-
-        .task-top span {
-
-            color: #777;
-
-            font-size: 8px;
-
-            font-weight: 700;
-
-        }
-
-
-        .task h3 {
-
-            font-size: 11px;
-
-            margin-bottom: 5px;
-
-        }
-
-
-        .task p {
-
-            color: #777;
-
-            font-size: 8px;
-
-        }
-
-
-        /* DATA */
-
-        .date-card {
-
-            width: 105px;
-
-            padding: 13px;
-
-            right: 35px;
-
-            bottom: 70px;
-
-            border-radius: 15px;
-
-            background: var(--green);
-
-            color: #000;
-
-            transform: rotate(-7deg);
-
-            box-shadow:
-                0 20px 40px rgba(0,0,0,0.25);
-
-            animation:
-                dateFloat 5s ease-in-out infinite;
-
-        }
-
-
-        @keyframes dateFloat {
-
-            0%,
-            100% {
-                transform:
-                    translateY(0)
-                    rotate(-7deg);
-            }
-
-            50% {
-                transform:
-                    translateY(-13px)
-                    rotate(-3deg);
-            }
-
-        }
-
-
-        .date-card small {
-
-            display: block;
-
-            font-size: 7px;
-
-            font-weight: 800;
-
-            opacity: 0.55;
-
-        }
-
-
-        .date-card strong {
-
-            display: block;
-
-            font-size: 27px;
-
-            line-height: 1;
-
-            margin: 4px 0;
-
-        }
-
-
-        .date-card span {
-
-            font-size: 7px;
-
-            font-weight: 800;
-
-        }
-
-
-        /* ATIVIDADE */
-
-        .activity {
-
-            width: 175px;
-
-            padding: 13px;
-
-            left: 25px;
-
-            bottom: 55px;
-
-            display: flex;
-
-            align-items: center;
-
             gap: 10px;
-
-            border-radius: 15px;
-
-            background: rgba(25,25,25,0.88);
-
-            border: 1px solid rgba(255,255,255,0.08);
-
-            color: white;
-
+            white-space: nowrap;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.22);
             backdrop-filter: blur(12px);
-
-            transform: rotate(-4deg);
-
-            animation:
-                activityFloat 8s ease-in-out infinite;
-
         }
 
+        .floating-card .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
 
-        @keyframes activityFloat {
+        .floating-card strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
 
-            0%,
-            100% {
-                transform:
-                    translateY(0)
-                    rotate(-4deg);
+        .floating-card small {
+            color: #999;
+            font-size: 9px;
+        }
+
+        .float-task {
+            top: 14%;
+            right: 4%;
+            background: rgba(35, 35, 35, 0.92);
+            border: 1px solid rgba(255,255,255,0.07);
+            animation: floatOne 6s ease-in-out infinite;
+        }
+
+        .float-task .icon {
+            background: rgba(131, 229, 9, 0.14);
+            color: var(--green);
+        }
+
+        .float-date {
+            bottom: 14%;
+            right: 5%;
+            background: var(--green);
+            color: #111;
+            animation: floatTwo 7s ease-in-out infinite;
+        }
+
+        .float-date .icon {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .float-date small {
+            color: rgba(0,0,0,0.55);
+        }
+
+        .float-check {
+            bottom: 7%;
+            left: 4%;
+            background: rgba(35, 35, 35, 0.92);
+            border: 1px solid rgba(255,255,255,0.07);
+            animation: floatThree 8s ease-in-out infinite;
+        }
+
+        .float-check .icon {
+            background: rgba(131, 229, 9, 0.14);
+            color: var(--green);
+        }
+
+        @keyframes floatOne {
+            0%, 100% {
+                transform: translateY(0) rotate(2deg);
             }
 
             50% {
-                transform:
-                    translateY(16px)
-                    rotate(-1deg);
+                transform: translateY(-14px) rotate(-1deg);
+            }
+        }
+
+        @keyframes floatTwo {
+            0%, 100% {
+                transform: translateY(0) rotate(-2deg);
             }
 
+            50% {
+                transform: translateY(12px) rotate(2deg);
+            }
         }
 
+        @keyframes floatThree {
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
 
-        .activity-icon {
-
-            width: 29px;
-
-            height: 29px;
-
-            border-radius: 9px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: rgba(131,229,9,0.12);
-
-            color: var(--green);
-
-            font-size: 12px;
-
-            flex-shrink: 0;
-
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
         }
 
+        /* =========================
+           PARTÍCULAS
+        ========================= */
 
-        .activity strong {
-
-            display: block;
-
-            font-size: 8px;
-
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--green);
+            border-radius: 50%;
+            opacity: 0.35;
+            animation: particleFloat 7s ease-in-out infinite;
         }
 
-
-        .activity span {
-
-            display: block;
-
-            color: #666;
-
-            font-size: 7px;
-
-            margin-top: 3px;
-
+        .particle:nth-child(1) {
+            top: 12%;
+            left: 12%;
+            animation-delay: 0s;
         }
 
+        .particle:nth-child(2) {
+            top: 30%;
+            right: 14%;
+            animation-delay: 1.5s;
+        }
 
-        /* =====================================================
+        .particle:nth-child(3) {
+            bottom: 25%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(4) {
+            bottom: 12%;
+            right: 30%;
+            animation-delay: 4.5s;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translateY(-18px);
+                opacity: 0.6;
+            }
+        }
+
+        /* =========================
            LOGIN
-        ===================================================== */
+        ========================= */
 
-        .login-section {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
+        .login-area {
             padding: 55px;
-
-            background: rgba(255,255,255,0.88);
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(255,255,255,0.96);
         }
 
-
-        .login {
-
+        .login-form {
             width: 100%;
-
-            max-width: 390px;
-
-            animation:
-                loginEnter 0.9s ease;
-
+            max-width: 380px;
+            animation: loginAppear 0.9s 0.2s ease both;
         }
 
-
-        @keyframes loginEnter {
-
+        @keyframes loginAppear {
             from {
-
                 opacity: 0;
-
-                transform: translateX(25px);
-
+                transform: translateX(20px);
             }
 
             to {
-
                 opacity: 1;
-
                 transform: translateX(0);
-
             }
-
         }
 
+        .login-header {
+            margin-bottom: 35px;
+        }
 
-        /* LOGO */
-
-        .logo {
-
-            width: 50px;
-
-            height: 50px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
+        .login-header .mini-logo {
+            width: 48px;
+            height: 48px;
             background: var(--green);
-
-            color: #000;
-
+            color: #111;
             border-radius: 14px;
-
-            font-size: 24px;
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
             font-weight: 900;
-
-            margin-bottom: 23px;
-
-            box-shadow:
-                0 10px 25px rgba(131,229,9,0.18);
-
+            margin-bottom: 25px;
         }
 
-
-        /* TÍTULO */
-
-        .login-title {
-
-            margin-bottom: 30px;
-
+        .login-header h2 {
+            font-size: 34px;
+            letter-spacing: -1.5px;
+            color: #111;
+            margin-bottom: 9px;
         }
 
-
-        .login-title span {
-
-            color: #888;
-
-            font-size: 13px;
-
+        .login-header p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
+        /* =========================
+           INPUTS
+        ========================= */
 
-        .login-title h1 {
-
-            margin-top: 4px;
-
-            font-size: 32px;
-
-            font-weight: 800;
-
-            letter-spacing: -1px;
-
+        .form-group {
+            margin-bottom: 20px;
         }
 
-
-        .login-title p {
-
-            margin-top: 7px;
-
-            color: #888;
-
-            font-size: 12px;
-
-        }
-
-
-        /* =====================================================
-           INPUT
-        ===================================================== */
-
-        .input-group {
-
-            margin-bottom: 19px;
-
-        }
-
-
-        .input-group label {
-
+        .form-group label {
             display: block;
-
-            margin-bottom: 8px;
-
-            font-size: 11px;
-
+            font-size: 12px;
             font-weight: 700;
-
             color: #333;
-
+            margin-bottom: 8px;
         }
-
 
         .input-box {
-
-            height: 52px;
-
-            width: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            border-radius: 13px;
-
-            border: 1px solid var(--border);
-
-            background: #FFFFFF;
-
-            transition: 0.3s;
-
+            position: relative;
         }
-
-
-        .input-box:focus-within {
-
-            border-color: var(--green);
-
-            box-shadow:
-                0 0 0 4px rgba(131,229,9,0.09);
-
-        }
-
-
-        .input-icon {
-
-            width: 45px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            color: #999;
-
-            font-size: 13px;
-
-        }
-
 
         .input-box input {
-
-            flex: 1;
-
-            height: 100%;
-
-            border: none;
-
+            width: 100%;
+            height: 54px;
+            padding: 0 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 13px;
             outline: none;
-
-            background: transparent;
-
-            font-family: inherit;
-
-            font-size: 13px;
-
-            color: #222;
-
+            font-size: 14px;
+            color: #111;
+            background: #fafafa;
+            transition: 0.3s ease;
         }
 
-
-        .input-box input::placeholder {
-
-            color: #AAA;
-
+        .input-box input:focus {
+            border-color: var(--green);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(131, 229, 9, 0.10);
         }
 
+        .password-input {
+            padding-right: 50px !important;
+        }
 
         .show-password {
-
-            margin-right: 14px;
-
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             border: none;
-
             background: transparent;
-
-            color: #999;
-
+            color: #888;
             cursor: pointer;
-
+            font-size: 12px;
+            font-weight: 600;
         }
-
 
         .show-password:hover {
-
             color: #111;
-
         }
 
-
-        /* =====================================================
-           ERROS
-        ===================================================== */
-
-        .error {
-
-            display: block;
-
-            min-height: 12px;
-
-            margin-top: 4px;
-
-            color: #E53935;
-
-            font-size: 9px;
-
-        }
-
-
-        /* =====================================================
+        /* =========================
            OPÇÕES
-        ===================================================== */
+        ========================= */
 
-        .options {
-
+        .form-options {
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
-            margin: 2px 0 23px;
-
-            font-size: 10px;
-
+            margin: 5px 0 25px;
+            gap: 10px;
         }
-
 
         .remember {
-
             display: flex;
-
             align-items: center;
-
-            gap: 7px;
-
+            gap: 8px;
             color: #777;
-
+            font-size: 11px;
             cursor: pointer;
-
         }
-
 
         .remember input {
-
-            display: none;
-
+            accent-color: var(--green);
         }
-
-
-        .check {
-
-            width: 16px;
-
-            height: 16px;
-
-            border: 1px solid #CCC;
-
-            border-radius: 5px;
-
-        }
-
-
-        .remember input:checked + .check {
-
-            background: var(--green);
-
-            border-color: var(--green);
-
-            box-shadow:
-                inset 0 0 0 4px white;
-
-        }
-
 
         .forgot {
-
-            color: #555;
-
+            color: #111;
+            font-size: 11px;
+            font-weight: 700;
             text-decoration: none;
-
-            font-weight: 600;
-
+            transition: 0.2s;
         }
-
 
         .forgot:hover {
-
-            color: #000;
-
+            color: #65a900;
         }
 
-
-        /* =====================================================
+        /* =========================
            BOTÃO
-        ===================================================== */
+        ========================= */
 
         .login-button {
-
             width: 100%;
-
-            height: 53px;
-
+            height: 55px;
             border: none;
-
             border-radius: 13px;
-
-            background: var(--dark);
-
+            background: #111;
             color: white;
-
-            font-family: inherit;
-
             font-size: 13px;
-
-            font-weight: 700;
-
+            font-weight: 800;
             cursor: pointer;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 10px;
-
-            transition: 0.3s;
-
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
         }
-
 
         .login-button:hover {
-
-            background: var(--green);
-
-            color: #000;
-
             transform: translateY(-2px);
-
-            box-shadow:
-                0 10px 25px rgba(131,229,9,0.18);
-
+            background: #1d1d1d;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
         }
 
-
-        .arrow {
-
-            font-size: 18px;
-
-            transition: 0.3s;
-
+        .login-button:active {
+            transform: translateY(0);
         }
 
-
-        .login-button:hover .arrow {
-
-            transform: translateX(5px);
-
+        .login-button.loading {
+            opacity: 0.7;
+            cursor: wait;
         }
 
-
-        /* =====================================================
-           DIVISOR
-        ===================================================== */
-
-        .divider {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            margin: 26px 0;
-
-            color: #AAA;
-
-            font-size: 9px;
-
-        }
-
-
-        .divider::before,
-        .divider::after {
-
-            content: "";
-
-            flex: 1;
-
-            height: 1px;
-
-            background: #E5E5E5;
-
-        }
-
-
-        /* =====================================================
+        /* =========================
            CRIAR CONTA
-        ===================================================== */
+        ========================= */
 
-        .create-account {
-
+        .register {
             text-align: center;
-
+            margin-top: 28px;
+            font-size: 12px;
             color: #888;
-
-            font-size: 11px;
-
         }
 
-
-        .create-account a {
-
-            display: inline-block;
-
-            margin-top: 7px;
-
-            color: #222;
-
-            text-decoration: none;
-
+        .register a {
+            color: #111;
             font-weight: 800;
-
+            text-decoration: none;
+            margin-left: 4px;
         }
 
-
-        .create-account a:hover {
-
-            color: #6DAE00;
-
+        .register a:hover {
+            color: #65a900;
         }
 
+        /* =========================
+           DECORAÇÃO LOGIN
+        ========================= */
 
-        /* =====================================================
+        .login-decoration {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 1px solid rgba(131, 229, 9, 0.12);
+            right: -90px;
+            bottom: -90px;
+            animation: rotateDecoration 15s linear infinite;
+        }
+
+        .login-decoration::before {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            border: 1px dashed rgba(131, 229, 9, 0.15);
+        }
+
+        @keyframes rotateDecoration {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================
            RESPONSIVIDADE
-        ===================================================== */
+        ========================= */
 
         @media (max-width: 1050px) {
-
-            .container {
-
-                width: min(950px, 94%);
-
+            body {
+                padding: 20px;
             }
 
+            .login-wrapper {
+                max-width: 900px;
+            }
 
-            .calendar-section {
-
+            .calendar-area,
+            .login-area {
                 padding: 40px;
-
             }
 
-
-            .login-section {
-
-                padding: 40px;
-
+            .float-task {
+                right: 2%;
             }
 
-
-            .task {
-
-                right: 20px;
-
+            .float-date {
+                right: 2%;
             }
-
-
-            .date-card {
-
-                right: 20px;
-
-            }
-
-
-            .activity {
-
-                left: 15px;
-
-            }
-
         }
-
 
         @media (max-width: 820px) {
-
             body {
-
-                overflow-x: hidden;
-
+                padding: 0;
+                align-items: stretch;
             }
 
-
-            .page {
-
-                padding: 25px 15px;
-
-            }
-
-
-            .container {
-
-                width: min(560px, 100%);
-
+            .login-wrapper {
+                max-width: none;
+                min-height: 100vh;
+                border-radius: 0;
                 grid-template-columns: 1fr;
-
-                min-height: auto;
-
             }
 
-
-            .calendar-section {
-
-                min-height: 470px;
-
-                padding: 45px 30px;
-
+            .calendar-area {
+                min-height: 620px;
+                padding: 50px 30px;
             }
 
-
-            .login-section {
-
-                padding: 45px 30px;
-
+            .login-area {
+                min-height: 600px;
+                padding: 50px 30px;
             }
 
-
-            .task {
-
-                top: 25px;
-
-                right: 25px;
-
+            .float-task {
+                top: 9%;
+                right: 3%;
             }
 
-
-            .date-card {
-
-                right: 25px;
-
-                bottom: 25px;
-
+            .float-date {
+                bottom: 10%;
+                right: 3%;
             }
 
-
-            .activity {
-
-                left: 25px;
-
-                bottom: 25px;
-
+            .float-check {
+                bottom: 5%;
+                left: 3%;
             }
-
         }
-
 
         @media (max-width: 550px) {
-
-            .page {
-
-                padding: 15px;
-
+            .calendar-area {
+                min-height: 590px;
+                padding: 40px 20px;
             }
 
-
-            .container {
-
-                border-radius: 20px;
-
+            .login-area {
+                padding: 45px 20px;
             }
 
-
-            .calendar-section {
-
-                min-height: 410px;
-
-                padding: 35px 20px;
-
+            .brand {
+                margin-bottom: 30px;
             }
 
-
-            .calendar {
-
-                max-width: 340px;
-
+            .calendar-title h1 {
+                font-size: 36px;
             }
 
-
-            .calendar-title h2 {
-
-                font-size: 23px;
-
+            .calendar-box {
+                padding: 18px;
             }
 
-
-            .calendar-grid {
-
+            .days {
                 gap: 4px;
-
             }
 
-
-            .calendar-day {
-
-                font-size: 11px;
-
-                border-radius: 9px;
-
+            .weekdays,
+            .days {
+                gap: 4px;
             }
 
-
-            .task {
-
-                width: 135px;
-
-                transform: scale(0.8) rotate(5deg);
-
-                right: -5px;
-
-                top: 15px;
-
+            .days div {
+                height: 35px;
             }
 
-
-            .date-card {
-
-                width: 85px;
-
-                transform: scale(0.85) rotate(-6deg);
-
-                right: -3px;
-
-                bottom: 20px;
-
+            .floating-card {
+                padding: 10px 12px;
             }
 
-
-            .activity {
-
-                width: 145px;
-
-                transform: scale(0.8) rotate(-3deg);
-
-                left: -5px;
-
-                bottom: 20px;
-
+            .floating-card small {
+                font-size: 8px;
             }
 
-
-            .login-section {
-
-                padding: 35px 22px;
-
+            .float-task {
+                top: 8%;
+                right: 5px;
             }
 
-
-            .login-title h1 {
-
-                font-size: 28px;
-
+            .float-date {
+                bottom: 9%;
+                right: 5px;
             }
 
+            .float-check {
+                left: 5px;
+                bottom: 4%;
+            }
+
+            .login-header h2 {
+                font-size: 30px;
+            }
         }
-
 
         @media (max-width: 380px) {
-
-            .calendar-section {
-
-                min-height: 380px;
-
+            .calendar-area {
+                min-height: 560px;
             }
 
-
-            .calendar {
-
-                max-width: 300px;
-
+            .calendar-title p {
+                font-size: 13px;
             }
 
-
-            .calendar-grid {
-
-                gap: 2px;
-
+            .calendar-box {
+                margin-top: 25px;
             }
 
-
-            .calendar-day {
-
-                font-size: 10px;
-
+            .float-task,
+            .float-date,
+            .float-check {
+                transform: scale(0.85);
             }
-
-
-            .task {
-
-                opacity: 0.75;
-
-            }
-
-
-            .activity {
-
-                opacity: 0.75;
-
-            }
-
-
-            .date-card {
-
-                opacity: 0.75;
-
-            }
-
         }
 
-
-        /* =====================================================
-           REDUÇÃO DE MOVIMENTO
-        ===================================================== */
+        /* =========================
+           ACESSIBILIDADE
+        ========================= */
 
         @media (prefers-reduced-motion: reduce) {
-
             *,
             *::before,
             *::after {
-
                 animation-duration: 0.01ms !important;
-
                 animation-iteration-count: 1 !important;
-
                 transition-duration: 0.01ms !important;
-
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <main class="login-wrapper">
 
-    <!-- =====================================================
-         FUNDO
-    ===================================================== -->
+        <!-- =========================
+             CALENDÁRIO DECORATIVO
+        ========================= -->
 
-    <div class="background"></div>
+        <section class="calendar-area">
 
+            <!-- Partículas -->
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
 
-    <!-- =====================================================
-         PÁGINA
-    ===================================================== -->
+            <!-- Elementos flutuantes -->
+            <div class="floating floating-card float-task">
+                <div class="icon">✓</div>
 
-    <main class="page">
+                <div>
+                    <strong>Tarefa concluída</strong>
+                    <small>Matemática • Hoje</small>
+                </div>
+            </div>
 
+            <div class="floating floating-card float-date">
+                <div class="icon">23</div>
 
-        <!-- =================================================
-             CONTAINER
-        ================================================== -->
+                <div>
+                    <strong>Hoje</strong>
+                    <small>Setembro, 2026</small>
+                </div>
+            </div>
 
-        <div class="container">
+            <div class="floating floating-card float-check">
+                <div class="icon">✓</div>
 
+                <div>
+                    <strong>Atividades</strong>
+                    <small>8 de 10 concluídas</small>
+                </div>
+            </div>
 
-            <!-- =============================================
-                 CALENDÁRIO
-            ============================================== -->
+            <div class="calendar-content">
 
-            <section class="calendar-section">
+                <div class="brand">
+                    <div class="brand-logo">A</div>
 
+                    <div class="brand-name">
+                        Atlas <span>CEEP</span>
+                    </div>
+                </div>
 
-                <!-- CALENDÁRIO -->
+                <div class="calendar-title">
+                    <h1>
+                        Sua rotina.<br>
+                        Organizada.
+                    </h1>
 
-                <div class="calendar">
+                    <p>
+                        Acompanhe suas atividades, aulas e
+                        compromissos em um só lugar.
+                    </p>
+                </div>
 
+                <!-- CALENDÁRIO APENAS ESTÉTICO -->
+                <div class="calendar-box">
 
                     <div class="calendar-header">
-
-
-                        <div class="calendar-arrow">
-                            ‹
-                        </div>
-
-
-                        <div class="calendar-title">
-
-                            <h2>
-                                Setembro
-                            </h2>
-
-                            <span>
-                                2026
-                            </span>
-
-                        </div>
-
-
-                        <div class="calendar-arrow">
-                            ›
-                        </div>
-
-
+                        <h2>Setembro 2026</h2>
+                        <span>23</span>
                     </div>
 
-
-                    <!-- SEMANA -->
-
-                    <div class="week">
-
-                        <span>DOM</span>
-                        <span>SEG</span>
-                        <span>TER</span>
-                        <span>QUA</span>
-                        <span>QUI</span>
-                        <span>SEX</span>
-                        <span>SÁB</span>
-
+                    <div class="weekdays">
+                        <div>DOM</div>
+                        <div>SEG</div>
+                        <div>TER</div>
+                        <div>QUA</div>
+                        <div>QUI</div>
+                        <div>SEX</div>
+                        <div>SÁB</div>
                     </div>
 
+                    <div class="days">
 
-                    <!-- DIAS -->
-
-                    <div class="calendar-grid">
-
+                        <div></div>
                         <div></div>
                         <div>1</div>
                         <div>2</div>
                         <div>3</div>
                         <div>4</div>
                         <div>5</div>
-                        <div>6</div>
 
+                        <div>6</div>
                         <div>7</div>
                         <div>8</div>
                         <div>9</div>
                         <div>10</div>
                         <div>11</div>
                         <div>12</div>
-                        <div>13</div>
 
+                        <div>13</div>
                         <div>14</div>
                         <div>15</div>
                         <div>16</div>
                         <div>17</div>
                         <div>18</div>
                         <div>19</div>
-                        <div>20</div>
 
+                        <div>20</div>
                         <div>21</div>
                         <div>22</div>
-
-                        <div class="calendar-day today">
-                            23
-                        </div>
-
+                        <div class="today">23</div>
                         <div>24</div>
                         <div>25</div>
                         <div>26</div>
-                        <div>27</div>
 
+                        <div>27</div>
                         <div>28</div>
                         <div>29</div>
                         <div>30</div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
 
                     </div>
-
                 </div>
 
-
-                <!-- =========================================
-                     ELEMENTO TAREFA
-                ========================================== -->
-
-                <div class="floating task">
-
-                    <div class="task-top">
-
-                        <div class="task-dot"></div>
-
-                        <span>
-                            ATIVIDADE
-                        </span>
-
-                    </div>
+            </div>
+        </section>
 
 
-                    <h3>
-                        Trabalho de programação
-                    </h3>
+        <!-- =========================
+             ÁREA DE LOGIN
+        ========================= -->
 
+        <section class="login-area">
+
+            <div class="login-decoration"></div>
+
+            <div class="login-form">
+
+                <div class="login-header">
+
+                    <div class="mini-logo">A</div>
+
+                    <h2>Bem-vindo de volta.</h2>
 
                     <p>
-                        Entrega hoje às 23:59
+                        Entre na sua conta para continuar
+                        organizando sua vida escolar.
                     </p>
 
                 </div>
 
+                <form id="loginForm">
 
-                <!-- =========================================
-                     ELEMENTO DATA
-                ========================================== -->
+                    <div class="form-group">
 
-                <div class="floating date-card">
+                        <label for="email">
+                            E-mail
+                        </label>
 
-                    <small>
-                        HOJE
-                    </small>
+                        <div class="input-box">
 
-                    <strong>
-                        23
-                    </strong>
-
-                    <span>
-                        SETEMBRO
-                    </span>
-
-                </div>
-
-
-                <!-- =========================================
-                     ELEMENTO ATIVIDADE
-                ========================================== -->
-
-                <div class="floating activity">
-
-                    <div class="activity-icon">
-                        ✓
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            Atividade concluída
-                        </strong>
-
-                        <span>
-                            Matemática • 14:30
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-            </section>
-
-
-            <!-- =================================================
-                 LOGIN
-            ================================================== -->
-
-            <section class="login-section">
-
-
-                <div class="login">
-
-
-                    <!-- LOGO -->
-
-                    <div class="logo">
-                        A
-                    </div>
-
-
-                    <!-- TÍTULO -->
-
-                    <div class="login-title">
-
-                        <span>
-                            Bem-vindo ao
-                        </span>
-
-
-                        <h1>
-                            Atlas CEEP
-                        </h1>
-
-
-                        <p>
-                            Organize sua vida escolar.
-                        </p>
-
-                    </div>
-
-
-                    <!-- FORMULÁRIO -->
-
-                    <form id="loginForm">
-
-
-                        <!-- EMAIL -->
-
-                        <div class="input-group">
-
-                            <label for="email">
-                                E-MAIL
-                            </label>
-
-
-                            <div class="input-box">
-
-                                <span class="input-icon">
-                                    @
-                                </span>
-
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    placeholder="Digite seu e-mail"
-                                    autocomplete="email"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <small
-                                class="error"
-                                id="emailError"
-                            ></small>
-
-                        </div>
-
-
-                        <!-- SENHA -->
-
-                        <div class="input-group">
-
-                            <label for="password">
-                                SENHA
-                            </label>
-
-
-                            <div class="input-box">
-
-                                <span class="input-icon">
-                                    ●
-                                </span>
-
-
-                                <input
-                                    type="password"
-                                    id="password"
-                                    placeholder="Digite sua senha"
-                                    autocomplete="current-password"
-                                    required
-                                >
-
-
-                                <button
-                                    type="button"
-                                    class="show-password"
-                                    id="showPassword"
-                                >
-                                    ◉
-                                </button>
-
-                            </div>
-
-
-                            <small
-                                class="error"
-                                id="passwordError"
-                            ></small>
-
-                        </div>
-
-
-                        <!-- OPÇÕES -->
-
-                        <div class="options">
-
-
-                            <label class="remember">
-
-                                <input
-                                    type="checkbox"
-                                >
-
-                                <span class="check"></span>
-
-                                Lembrar de mim
-
-                            </label>
-
-
-                            <a
-                                href="#"
-                                class="forgot"
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="seuemail@exemplo.com"
+                                autocomplete="email"
+                                required
                             >
-                                Esqueceu a senha?
-                            </a>
-
 
                         </div>
 
+                    </div>
 
-                        <!-- BOTÃO -->
 
-                        <button
-                            type="submit"
-                            class="login-button"
-                        >
+                    <div class="form-group">
+
+                        <label for="password">
+                            Senha
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="password"
+                                id="password"
+                                class="password-input"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="showPassword"
+                            >
+                                Mostrar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-options">
+
+                        <label class="remember">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                            >
 
                             <span>
-                                Entrar
+                                Lembrar de mim
                             </span>
+                        </label>
 
-                            <span class="arrow">
-                                →
-                            </span>
-
-                        </button>
-
-
-                    </form>
-
-
-                    <!-- DIVISOR -->
-
-                    <div class="divider">
-
-                        <span>
-                            ou
-                        </span>
-
-                    </div>
-
-
-                    <!-- CRIAR CONTA -->
-
-                    <div class="create-account">
-
-                        <p>
-                            Ainda não possui uma conta?
-                        </p>
-
-
-                        <a href="#">
-                            Criar uma conta
+                        <a href="#" class="forgot">
+                            Esqueceu a senha?
                         </a>
 
                     </div>
 
 
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+                        Entrar
+                    </button>
+
+                </form>
+
+
+                <div class="register">
+
+                    Ainda não possui uma conta?
+
+                    <a href="#">
+                        Criar uma conta
+                    </a>
+
                 </div>
 
+            </div>
 
-            </section>
-
-
-        </div>
+        </section>
 
     </main>
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
     <script>
 
-
-        /* =================================================
+        /* =========================
            MOSTRAR / OCULTAR SENHA
-        ================================================== */
+        ========================= */
 
-        const password =
+        const passwordInput =
             document.getElementById("password");
 
         const showPassword =
             document.getElementById("showPassword");
 
+        showPassword.addEventListener("click", () => {
 
-        showPassword.addEventListener(
-            "click",
-            function () {
+            if (passwordInput.type === "password") {
 
-                if (
-                    password.type === "password"
-                ) {
+                passwordInput.type = "text";
+                showPassword.textContent = "Ocultar";
 
-                    password.type = "text";
+            } else {
 
-                    showPassword.textContent =
-                        "◌";
-
-                } else {
-
-                    password.type = "password";
-
-                    showPassword.textContent =
-                        "◉";
-
-                }
+                passwordInput.type = "password";
+                showPassword.textContent = "Mostrar";
 
             }
-        );
+
+        });
 
 
-        /* =================================================
-           VALIDAÇÃO DO LOGIN
-        ================================================== */
+        /* =========================
+           LOGIN
+        ========================= */
 
-        const form =
+        const loginForm =
             document.getElementById("loginForm");
 
-        const email =
-            document.getElementById("email");
+        const loginButton =
+            document.getElementById("loginButton");
 
-        const emailError =
-            document.getElementById("emailError");
+        loginForm.addEventListener("submit", (event) => {
 
-        const passwordError =
-            document.getElementById("passwordError");
+            event.preventDefault();
 
+            const email =
+                document.getElementById("email").value.trim();
 
-        form.addEventListener(
-            "submit",
-            function (event) {
+            const password =
+                passwordInput.value.trim();
 
-                event.preventDefault();
+            if (!email || !email.includes("@")) {
 
-
-                emailError.textContent = "";
-
-                passwordError.textContent = "";
-
-
-                let valid = true;
-
-
-                /* EMAIL */
-
-                if (
-                    email.value.trim() === ""
-                ) {
-
-                    emailError.textContent =
-                        "Digite seu e-mail.";
-
-                    valid = false;
-
-                }
-                else if (
-                    !email.value.includes("@")
-                ) {
-
-                    emailError.textContent =
-                        "Digite um e-mail válido.";
-
-                    valid = false;
-
-                }
-
-
-                /* SENHA */
-
-                if (
-                    password.value.trim() === ""
-                ) {
-
-                    passwordError.textContent =
-                        "Digite sua senha.";
-
-                    valid = false;
-
-                }
-                else if (
-                    password.value.length < 6
-                ) {
-
-                    passwordError.textContent =
-                        "A senha deve ter pelo menos 6 caracteres.";
-
-                    valid = false;
-
-                }
-
-
-                if (!valid) {
-
-                    return;
-
-                }
-
-
-                /* ANIMAÇÃO DO BOTÃO */
-
-                const button =
-                    form.querySelector(
-                        ".login-button"
-                    );
-
-
-                const original =
-                    button.innerHTML;
-
-
-                button.innerHTML =
-                    "<span>Entrando...</span>";
-
-                button.style.opacity =
-                    "0.7";
-
-                button.style.pointerEvents =
-                    "none";
-
-
-                setTimeout(
-                    function () {
-
-                        button.innerHTML =
-                            original;
-
-                        button.style.opacity =
-                            "1";
-
-                        button.style.pointerEvents =
-                            "auto";
-
-                    },
-                    1200
-                );
+                alert("Digite um e-mail válido.");
+                return;
 
             }
-        );
 
+            if (!password || password.length < 6) {
+
+                alert("A senha deve possuir pelo menos 6 caracteres.");
+                return;
+
+            }
+
+            loginButton.classList.add("loading");
+            loginButton.textContent = "Entrando...";
+
+            /*
+                Aqui futuramente você pode conectar
+                o formulário ao seu backend/API.
+            */
+
+            setTimeout(() => {
+
+                loginButton.classList.remove("loading");
+                loginButton.textContent = "Entrar";
+
+            }, 1200);
+
+        });
 
     </script>
 
 </body>
-
 </html>
 ```
